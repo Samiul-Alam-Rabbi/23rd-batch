@@ -1,0 +1,75 @@
+#include <stdio.h>
+
+// Function to merge two halves of the array
+void merge(int a[], int beg, int mid, int end) {
+    int i = beg, j = mid + 1, k = 0;  // Initialize i for the first half, j for the second half
+    int temp[end - beg + 1];  // Temporary array to store the merged result
+
+    // Merge the two halves into temp[]
+    while (i <= mid && j <= end) {  // Continue until either half is exhausted
+        if (a[i] <= a[j])  // If the element in the first half is smaller or equal
+            temp[k++] = a[i++];  // Add it to temp[] and move i forward
+        else
+            temp[k++] = a[j++];  // Otherwise, add the element from the second half
+    }
+
+    // If there are remaining elements in the first half, add them to temp[]
+    while (i <= mid) 
+        temp[k++] = a[i++];
+
+    // If there are remaining elements in the second half, add them to temp[]
+    while (j <= end) 
+        temp[k++] = a[j++];
+
+    // Copy the sorted elements from temp[] back to the original array
+    for (i = beg, k = 0; i <= end; i++, k++)
+        a[i] = temp[k];
+}
+
+// Recursive function to implement merge sort
+void mergeSort(int a[], int beg, int end) {
+    if (beg < end) {  // Base case: if beg >= end, the array is already sorted
+        int mid = (beg + end) / 2;  // Find the midpoint
+
+        // Recursively sort the first half
+        mergeSort(a, beg, mid);
+
+        // Recursively sort the second half
+        mergeSort(a, mid + 1, end);
+
+        // Merge the two halves
+        merge(a, beg, mid, end);
+    }
+}
+
+// Function to print the array
+void printArray(int a[], int n) {
+    for (int i = 0; i < n; i++)  // Loop through the array elements
+        printf("%d ", a[i]);  // Print each element
+    printf("\n");  // Newline after printing all elements
+}
+
+int main() {
+    int n, a[25];  // Declare an array to hold up to 25 elements and a variable for size
+    
+    printf("How many elements?: ");  // Ask user for the number of elements
+    scanf("%d", &n);  // Store the number of elements in 'n'
+    
+    // Input the array elements from the user
+    printf("Enter %d elements: ", n);
+    for (int i = 0; i < n; i++)
+        scanf("%d", &a[i]);
+
+    // Print the array before sorting
+    printf("Before sorting: ");
+    printArray(a, n);
+
+    // Call mergeSort to sort the array
+    mergeSort(a, 0, n - 1);
+
+    // Print the array after sorting
+    printf("After sorting: ");
+    printArray(a, n);
+
+    return 0;  // End of program
+}
