@@ -73,3 +73,9 @@ int main() {
 
     return 0;  // End of program
 }
+
+Explanation of key parts:
+merge(): This function merges two sorted halves of the array into a single sorted array.
+mergeSort(): This is the recursive function that splits the array into smaller parts until each part has one element, and then calls merge() to combine them in sorted order.
+printArray(): A utility function to print the elements of the array.
+main(): Handles input, displays the array before and after sorting, and manages the program’s flow.
